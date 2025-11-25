@@ -42,11 +42,26 @@ function App() {
     idRef.current += 1;
   };
 
+  // 할 일 아이템을 수정하는 함수
+  const onUpdate = (targetId) => {
+    setTodo(
+      todo.map(
+        (it) => 
+          it.id === targetId ? {...it, isDone: !it.isDone} : it
+      )
+    );
+  };
+
+  // 할 일 아이템을 삭제하는 함수
+  const onDelete = (targetId) => {
+    setTodo(todo.filter((it) => it.id !== targetId));
+  }
+
   return (
     <div className='App'>
       <Header/>
       <TodoEditor onCreate={onCreate}/>
-      <TodoList/>
+      <TodoList todo={todo} onUpdate={onUpdate} onDelete={onDelete}/>
     </div>
   )
 }
